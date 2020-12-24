@@ -1,20 +1,22 @@
 package fr.elliot.qonos.Plan;
 
+import static fr.elliot.qonos.Enum.highSkills.*;
+import static fr.elliot.qonos.Enum.baseStats.*;
+
 import fr.elliot.qonos.Enum.Carreer;
 import fr.elliot.qonos.Enum.Race;
+import fr.elliot.qonos.Enum.baseStats;
+import fr.elliot.qonos.Enum.highSkills;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Statistique
 {
     private Character owner;
 
-    private int volentée, calme, intelligence, sociabilité, discretion, perception, precision, force_brut, resistance, intimidation;
-
-    private boolean désengagement_de_combat, charge, esquive, natation, soins, musique, peinture, poésie, baratinerie, cavalerie;
-    private Map<String, Map<Boolean, Integer>> skills = new HashMap<>();
+    private Map<baseStats, Integer> baseStats = new HashMap<>();
+    private Map<highSkills, Map<Boolean, Integer>> skills = new HashMap<>();
 
     public Statistique(Character owner, Race race)
     {
@@ -26,27 +28,27 @@ public class Statistique
 
     private void computeProperties(Race race) {
         if(race == Race.QO_NOSI) {
-            this.volentée = owner.roll(20) + owner.roll(20) + 10;
-            this.calme = owner.roll(10) + 10;
-            this.intelligence = owner.roll(20) + 10;
-            this.sociabilité = owner.roll(20) + owner.roll(10);
-            this.discretion = owner.roll(20) + owner.roll(20) + 20;
-            this.perception = owner.roll(20) + owner.roll(20) + 10;
-            this.precision = owner.roll(20) + 30;
-            this.force_brut = owner.roll(20) + owner.roll(20) + 20;
-            this.resistance = owner.roll(20) + owner.roll(20) + 10;
-            this.intimidation = owner.roll(10) + 10;
+            this.baseStats.put(volentée, owner.roll(20) + owner.roll(20) + 10);
+            this.baseStats.put(calme, owner.roll(10) + 10);
+            this.baseStats.put(intelligence, owner.roll(20) + 10);
+            this.baseStats.put(sociabilité, owner.roll(20) + owner.roll(10));
+            this.baseStats.put(discretion, owner.roll(20) + owner.roll(20) + 10);
+            this.baseStats.put(perception, owner.roll(20) + owner.roll(20) + 10);
+            this.baseStats.put(precision, owner.roll(20) + 30);
+            this.baseStats.put(force_brut, owner.roll(20) + owner.roll(20) + 10);
+            this.baseStats.put(resistance, owner.roll(20) + owner.roll(20) + 10);
+            this.baseStats.put(intimidation, owner.roll(10) + 10);
         } else if(race == Race.HO_NOSI) {
-            this.volentée = owner.roll(20) + owner.roll(20) + 10;
-            this.calme = owner.roll(20) + 30;
-            this.intelligence = owner.roll(20) + 40;
-            this.sociabilité = owner.roll(20) + owner.roll(20) + 10;
-            this.discretion = owner.roll(20) + owner.roll(10);
-            this.perception = owner.roll(20) + 20;
-            this.precision = owner.roll(20) + 30;
-            this.force_brut = owner.roll(20) + owner.roll(20) + 10;
-            this.resistance = owner.roll(20) + owner.roll(20) + 10;
-            this.intimidation = owner.roll(20);
+            this.baseStats.put(volentée, owner.roll(20) + owner.roll(20) + 10);
+            this.baseStats.put(calme, owner.roll(20) + 30);
+            this.baseStats.put(intelligence, owner.roll(20) + 40);
+            this.baseStats.put(sociabilité, owner.roll(20) + owner.roll(20) + 10);
+            this.baseStats.put(discretion, owner.roll(20) + owner.roll(10));
+            this.baseStats.put(perception, owner.roll(20) +20);
+            this.baseStats.put(precision, owner.roll(20) + 30);
+            this.baseStats.put(force_brut, owner.roll(20) + owner.roll(20) + 10);
+            this.baseStats.put(resistance, owner.roll(20) + owner.roll(20) + 10);
+            this.baseStats.put(intimidation, owner.roll(20));
         }
     }
     private void computeSkills(Carreer carreer) {
@@ -78,27 +80,20 @@ public class Statistique
         }
     }
     private void computeSkillsbyCarrer(int[] bool, int[] value) {
-        this.skills.get("désengagement_de_combat").put(owner.roll(10) == bool[0] ? true : false, value[0]);
-        this.skills.get("charge").put(owner.roll(10) == bool[1] ? true : false, value[1]);
-        this.skills.get("esquive").put(owner.roll(10) == bool[2] ? true : false, value[2]);
-        this.skills.get("natation").put(owner.roll(10) == bool[3] ? true : false, value[3]);
-        this.skills.get("soins").put(owner.roll(10) == bool[4] ? true : false, value[4]);
-        this.skills.get("musique").put(owner.roll(10) == bool[5] ? true : false, value[5]);
-        this.skills.get("peinture").put(owner.roll(10) == bool[6] ? true : false, value[6]);
-        this.skills.get("poésie").put(owner.roll(10) == bool[7] ? true : false, value[7]);
-        this.skills.get("baratinerie").put(owner.roll(10) == bool[8] ? true : false, value[8]);
-        this.skills.get("cavalerie").put(owner.roll(10) == bool[9] ? true : false, value[9]);
+        this.skills.get(DESENGAGEMENT_DE_COMBAT).put(owner.roll(10) == bool[0] ? true : false, value[0]);
+        this.skills.get(CHARGE).put(owner.roll(10) == bool[1] ? true : false, value[1]);
+        this.skills.get(ESQUIVE).put(owner.roll(10) == bool[2] ? true : false, value[2]);
+        this.skills.get(NATATION).put(owner.roll(10) == bool[3] ? true : false, value[3]);
+        this.skills.get(SOINS).put(owner.roll(10) == bool[4] ? true : false, value[4]);
+        this.skills.get(MUSIQUE).put(owner.roll(10) == bool[5] ? true : false, value[5]);
+        this.skills.get(PEINTURE).put(owner.roll(10) == bool[6] ? true : false, value[6]);
+        this.skills.get(POESIE).put(owner.roll(10) == bool[7] ? true : false, value[7]);
+        this.skills.get(BARATINERIE).put(owner.roll(10) == bool[8] ? true : false, value[8]);
+        this.skills.get(CAVALERIE).put(owner.roll(10) == bool[9] ? true : false, value[9]);
     }
     private void initSkills() {
-        this.skills.put("désengagement_de_combat", new HashMap<Boolean, Integer>());
-        this.skills.put("charge", new HashMap<Boolean, Integer>());
-        this.skills.put("esquive", new HashMap<Boolean, Integer>());
-        this.skills.put("natation", new HashMap<Boolean, Integer>());
-        this.skills.put("soins", new HashMap<Boolean, Integer>());
-        this.skills.put("musique", new HashMap<Boolean, Integer>());
-        this.skills.put("peinture", new HashMap<Boolean, Integer>());
-        this.skills.put("poésie", new HashMap<Boolean, Integer>());
-        this.skills.put("baratinerie", new HashMap<Boolean, Integer>());
-        this.skills.put("cavalerie", new HashMap<Boolean, Integer>());
+        for(highSkills skill : highSkills.values()) {
+            this.skills.put(skill, new HashMap<>());
+        }
     }
  }

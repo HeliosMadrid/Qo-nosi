@@ -1,5 +1,6 @@
 package fr.elliot.qonos.utils;
 
+import fr.elliot.qonos.Plan.Player;
 import fr.elliot.qonos.Qo_nos;
 
 public class CommandManager
@@ -42,7 +43,35 @@ public class CommandManager
     }
 
     public void playerCMD() {
+        System.out.println("Qu'est ce que vous désirez :");
+        String subCmd = Qo_nos.scanner.nextLine();
+        switch(subCmd) {
+            case create:
+                GameManager.INSTANCE.addPlayer();
+                break;
 
+            case roll:
+                System.out.println("Quel est le nombre de faces du dé : ");
+                int faces = Qo_nos.scanner.nextInt();
+                System.out.println("Quel est le nom du joueur : ");
+                String playerName = Qo_nos.scanner.nextLine();
+                Player player = GameManager.INSTANCE.getPlayerByName(playerName);
+                int result = player.roll(faces);
+                System.out.println("Le resultat du lancer de ".concat(player.getName()).concat(" est : ").concat(String.valueOf(result)));
+                break;
+
+//            case :
+//
+//                break;
+
+
+            default:
+                System.out.println("Les commandes possible sont : ");
+                System.out.println("- create");
+                System.out.println("- roll");
+                System.out.println("- changeName");
+                break;
+        }
     }
 
     public void assistCMD() {

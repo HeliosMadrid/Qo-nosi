@@ -62,4 +62,8 @@ public enum Carreer
 
         return false;
     }
+    public Grade[] getGrades()
+    {
+        return grades;
+    }
 }

@@ -1,0 +1,6 @@
+package fr.elliot.qonos.Enum;
+
+public enum highSkills
+{
+    DESENGAGEMENT_DE_COMBAT, CHARGE, ESQUIVE, NATATION, SOINS, MUSIQUE, PEINTURE, POESIE, BARATINERIE, CAVALERIE;
+}
