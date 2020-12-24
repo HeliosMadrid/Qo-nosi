@@ -1,39 +1,20 @@
 package fr.elliot.qonos.Plan;
 
-import java.util.HashSet;
+import fr.elliot.qonos.utils.GameManager;
+
 import java.util.Random;
-import java.util.Set;
 
 public abstract class Player
 {
     protected String name;
 
-    protected static Set<Player> players = new HashSet<>();
-
-    public Player(String name)
-    {
+    protected Player(String name) {
         this.name = name;
-        players.add(this);
+        GameManager.INSTANCE.getPlayers().add(this);
     }
 
     public int roll(int faces) {
         return new Random().nextInt(faces - 1) + 1;
-    }
-
-    public static Player getPlayerByName(String name) throws NullPointerException {
-        try{
-            for(Player player : Player.getPlayers())
-            {
-                if(player.name.equals(name))
-                    return player;
-            }
-            return null;
-
-        } catch(NullPointerException e) {
-            e.printStackTrace();
-            System.out.println("ERROR: name invalid");
-            return null;
-        }
     }
 
     public String getName()
@@ -41,8 +22,8 @@ public abstract class Player
         return name;
     }
 
-    public static Set<Player> getPlayers()
+    public void setName(String name)
     {
-        return players;
+        this.name = name;
     }
 }

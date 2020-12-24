@@ -1,20 +1,10 @@
 package fr.elliot.qonos.Plan;
 
-import fr.elliot.qonos.Qo_nos;
-
 public class MasterGame extends Player
 {
-    public MasterGame(String name)
-    {
+    public MasterGame(String name) {
         super(name);
-
         welcome();
-    }
-
-    public static void addPlayer() {
-        System.out.println("Nom du maitre ultime : ");
-        String name = Qo_nos.scanner.nextLine();
-        MasterGame mj = new MasterGame(name);
     }
     private void welcome() {
         System.out.println("Bonjour et bienvenue maître du jeu, désormais c'est vous qui allez menez cette partie je m'appelle `Qo'nos` "
