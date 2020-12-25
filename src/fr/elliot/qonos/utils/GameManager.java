@@ -25,8 +25,10 @@ public class GameManager
         String name = Qo_nos.scanner.nextLine();
         System.out.println("Origine du personnage: ");
         Race race = Race.getRaceByName(Qo_nos.scanner.nextLine());
+        if(race == Race.NULL) return;
         System.out.println("Carrière du personnage: ");
         Carreer carreer = Carreer.getCarrer(Qo_nos.scanner.nextLine());
+        if(carreer == null) return;
         if(race.isPossibleCarreer(carreer)) {
             Player player = new Character(name, race, carreer);
         } else {

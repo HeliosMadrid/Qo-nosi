@@ -57,6 +57,7 @@ public class CommandManager
                 System.out.println("Quel est le nom du joueur : ");
                 String playerName = Qo_nos.scanner.nextLine();
                 Player player = GameManager.INSTANCE.getPlayerByName(playerName);
+                if(player == null) return;
                 int result = player.roll(faces);
                 System.out.println("Le resultat du lancer de ".concat(player.getName()).concat(" est : ").concat(String.valueOf(result)));
                 break;
@@ -64,6 +65,7 @@ public class CommandManager
             case changeName:
                         System.out.println("Qu'elle sera la joueur");
                         Player character = GameManager.INSTANCE.getPlayerByName(Qo_nos.scanner.nextLine());
+                        if(character == null) return;
                         System.out.println("Qu'elle sera votre nouveau nom désormais :");
                         String name = Qo_nos.scanner.nextLine();
                         character.setName(name);
@@ -73,6 +75,7 @@ public class CommandManager
             case printStats:
                 System.out.println("De quel personnage voulez-vous obtenir les stats : ");
                 Character playerStat = (Character)GameManager.INSTANCE.getPlayerByName(Qo_nos.scanner.nextLine());
+                if(playerStat == null) return;
                 playerStat.printStats();
                 break;
 
@@ -81,7 +84,7 @@ public class CommandManager
                 System.out.println("- create");
                 System.out.println("- roll");
                 System.out.println("- changeName");
-                System.out.println("- printStats");
+                System.out.println("- stats");
                 break;
         }
     }
