@@ -1,12 +1,13 @@
 package fr.elliot.qonos.utils;
 
+import fr.elliot.qonos.Plan.Character;
 import fr.elliot.qonos.Plan.Player;
 import fr.elliot.qonos.Qo_nos;
 
 public class CommandManager
 {
     public static final CommandManager INSTANCE = new CommandManager();
-    private final String create = "create", changeName = "changeName", roll = "roll";
+    private final String create = "create", changeName = "changeName", roll = "roll", printStats = "stats";
 
     public void mjCMD() {
         System.out.println("Qu'est ce que vous voulez faire du Maître");
@@ -60,16 +61,27 @@ public class CommandManager
                 System.out.println("Le resultat du lancer de ".concat(player.getName()).concat(" est : ").concat(String.valueOf(result)));
                 break;
 
-//            case :
-//
-//                break;
+            case changeName:
+                        System.out.println("Qu'elle sera la joueur");
+                        Player character = GameManager.INSTANCE.getPlayerByName(Qo_nos.scanner.nextLine());
+                        System.out.println("Qu'elle sera votre nouveau nom désormais :");
+                        String name = Qo_nos.scanner.nextLine();
+                        character.setName(name);
+                        System.out.println("Si j'ai capté le nouveau nom est :" + character.getName());
+                break;
 
+            case printStats:
+                System.out.println("De quel personnage voulez-vous obtenir les stats : ");
+                Character playerStat = (Character)GameManager.INSTANCE.getPlayerByName(Qo_nos.scanner.nextLine());
+                playerStat.printStats();
+                break;
 
             default:
                 System.out.println("Les commandes possible sont : ");
                 System.out.println("- create");
                 System.out.println("- roll");
                 System.out.println("- changeName");
+                System.out.println("- printStats");
                 break;
         }
     }

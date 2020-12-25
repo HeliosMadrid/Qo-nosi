@@ -8,6 +8,7 @@ import fr.elliot.qonos.Plan.Player;
 import fr.elliot.qonos.Qo_nos;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class GameManager
@@ -19,14 +20,31 @@ public class GameManager
 
     private Set<Player> players = new HashSet<>();
 
-    public  void addPlayer() {
+    public void addPlayer() {
         System.out.println("Nom du personnage: ");
         String name = Qo_nos.scanner.nextLine();
         System.out.println("Origine du personnage: ");
-        Race race = Race.getRace(Qo_nos.scanner.nextLine());
+        Race race = Race.getRaceByName(Qo_nos.scanner.nextLine());
         System.out.println("Carrière du personnage: ");
         Carreer carreer = Carreer.getCarrer(Qo_nos.scanner.nextLine());
-        Player player = new Character(name, race, carreer);
+        if(race.isPossibleCarreer(carreer)) {
+            Player player = new Character(name, race, carreer);
+        } else {
+            System.out.println("Vous ne pouvez pas voici la liste des carrières possible avec cette race : ");
+            if(race == Race.QO_NOSI) {
+                System.out.println("- " + Carreer.FANTASSIN.name());
+                System.out.println("- " + Carreer.CAVALIER.name());
+                System.out.println("- " + Carreer.ARCHER.name());
+                System.out.println("- " + Carreer.GARDE_IMPERIAL.name());
+                System.out.println("- " + Carreer.ARTISTE.name());
+            } else {
+                System.out.println("- " + Carreer.CAVALIER.name());
+                System.out.println("- " + Carreer.STRATEGE_IMPERIAL.name());
+                System.out.println("- " + Carreer.MEDECIN.name());
+                System.out.println("- " + Carreer.ARTISTE.name());
+                System.out.println("- " + Carreer.SCIENTIFIQUE_IMPERIAL.name());
+            }
+        }
     }
 
     public void addMJ() {
@@ -69,5 +87,9 @@ public class GameManager
     public MasterGame getMj()
     {
         return mj;
+    }
+
+    public static int roll(int faces) {
+        return new Random().nextInt(faces - 1) + 1;
     }
 }

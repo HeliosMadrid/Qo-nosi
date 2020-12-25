@@ -1,27 +1,28 @@
 package fr.elliot.qonos.Plan;
 
 import fr.elliot.qonos.Enum.Carreer;
-import fr.elliot.qonos.Enum.Competences;
 import fr.elliot.qonos.Enum.Grade;
 import fr.elliot.qonos.Enum.Race;
-
-import java.util.HashMap;
-import java.util.Map;
+import fr.elliot.qonos.Enum.Talents;
 
 public class Character extends Player
 {
     private final Statistique stat;
     private final Race race;
-    private Map<Competences, Integer> competences = new HashMap<>();
     private final Carreer carreer;
     private Grade grade;
+    private final Talents[] talents;
 
-    public Character(String name, Race race, Carreer carreer)    {
+    public Character(String name, Race race, Carreer carreer) {
         super(name);
-        this.carreer = carreer;
         this.race = race;
+        this.carreer = carreer;
+        this.stat = new Statistique(this);
+        this.talents = new Talents[] {Talents.getTalentsByInt(roll(20)), Talents.getTalentsByInt(roll(20))};
         this.grade = carreer.getGrades()[0];
-        this.stat = new Statistique(this, race);
+
+        if(carreer == Carreer.FANTASSIN || carreer == Carreer.ARTISTE)
+            this.carreer.chooseSpecialistion(this);
     }
 
     public Statistique getStat()
@@ -39,9 +40,19 @@ public class Character extends Player
         return carreer;
     }
 
-//    private void initComptences() {
-//        for(Competences competence : Competences.values()) {
-//            this.competences.put(competence, );
-//        }
-//    }
+    public void printStats() {
+        System.out.println("--------------------------------------------------");
+        System.out.println("----------" + this.name + "----------");
+        System.out.println("--------------------------------------------------");
+        System.out.println("##################################################");
+        System.out.println("Name: // " + this.name + " //");
+        System.out.println("Race: // " + this.race.getName() + " //");
+        System.out.println("Carrière : // " + this.carreer.name() + " // Le grade actuel est : " + this.grade + " //");
+        System.out.println("Talents : // " + this.talents[0].name() + " // " + this.talents[1].name() + " //");
+        System.out.println("Stats : ");
+        System.out.println("        ''''''''''");
+        stat.print();
+        System.out.println("        ''''''''''");
+        System.out.println("##################################################");
+    }
 }
